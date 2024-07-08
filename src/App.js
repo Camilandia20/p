@@ -6,8 +6,7 @@ import AgendarExamen from './agendarExamen';
 import ResultadosExamen from './resultados';
 import Home from './home';
 import ProblemDescription from './problem';
-import { ReactTerminal } from "react-terminal";
-import CodeEditor from './terminal';
+import Terminal from './terminal';
 function App() {
   return (
     <Router>
@@ -18,7 +17,8 @@ function App() {
         <Route path="/resultados" element={<ResultadosExamen/>} />
         <Route path="/home" element={<Home />} />
         <Route path='/problem' element={<ProblemDescription/>} />
-        <Route path='/terminal' element={<CodeEditor/>} />
+        <Route path='/terminal' element={<Terminal/>} />
+        
       </Routes>
     </Router>
   );

@@ -2,7 +2,6 @@ import React from 'react';
 import './problem.css';
 import { ReactTerminal } from "react-terminal";
 
-
 const ProblemDescription = () => {
     const problem = {
         description: 'Aquí va la descripción detallada del problema que el estudiante debe resolver.',

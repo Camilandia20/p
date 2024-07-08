@@ -1,30 +1,25 @@
 // src/components/CodeEditor.js
-import './terminal.css'
-import React from 'react';
-import { Controlled as ControlledEditor } from 'react-codemirror2';
-import 'codemirror/lib/codemirror.css'; // Importa los estilos correctos de CodeMirror
-import 'codemirror/theme/material.css'; // Importa el tema de CodeMirror que desees utilizar
+import "codemirror/lib/codemirror.css";
+import "codemirror/theme/material.css";
 
-const CodeEditor = ({ code, setCode }) => {
-  const handleChange = (editor, data, value) => {
-    setCode(value); // Actualiza el estado con el código modificado
-  };
-
+const Terminal =()=>{
   return (
     <div className="code-editor">
-      <ControlledEditor
-        onBeforeChange={handleChange}
-        value={code}
-        options={{
-          lineWrapping: true, // Envolver líneas automáticamente
-          lint: true, // Habilitar el linting para detectar errores en tiempo real
-          mode: 'javascript', // Modo de lenguaje (JavaScript en este ejemplo)
-          theme: 'material', // Tema del editor
-          lineNumbers: true, // Mostrar números de línea
-        }}
-      />
+     <CodeMirror
+  value='<h1>I ♥ react-codemirror2</h1>'
+  options={{
+    mode: 'xml',
+    theme: 'material',
+    lineNumbers: true
+  }}
+  onChange={(editor, data, value) => {
+  }}
+/>
     </div>
   );
-};
 
-export default CodeEditor;
+
+}
+
+ 
+export default Terminal;
