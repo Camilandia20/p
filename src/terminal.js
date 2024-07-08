@@ -1,25 +1,30 @@
-// src/components/CodeEditor.js
-import "codemirror/lib/codemirror.css";
-import "codemirror/theme/material.css";
+import React from 'react';
+import Editor from "@monaco-editor/react";
 
-const Terminal =()=>{
+function Terminal() {
+  const editorRef = React.useRef(null);
+
+  function handleEditorDidMount(editor, monaco) {
+    editorRef.current = editor;
+  }
+
+  function handleSubmit() {
+    const code = editorRef.current.getValue();
+    // Aquí implementarías la lógica para enviar el código al servidor
+    console.log(code);
+  }
+
   return (
-    <div className="code-editor">
-     <CodeMirror
-  value='<h1>I ♥ react-codemirror2</h1>'
-  options={{
-    mode: 'xml',
-    theme: 'material',
-    lineNumbers: true
-  }}
-  onChange={(editor, data, value) => {
-  }}
-/>
+    <div>
+      <Editor
+        height="500px"
+        defaultLanguage="java"
+        defaultValue="public String test(String text){}"
+        theme="vs-dark"
+        onMount={handleEditorDidMount}
+      />
     </div>
   );
-
-
 }
 
- 
 export default Terminal;

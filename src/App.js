@@ -6,7 +6,6 @@ import AgendarExamen from './agendarExamen';
 import ResultadosExamen from './resultados';
 import Home from './home';
 import ProblemDescription from './problem';
-import Terminal from './terminal';
 function App() {
   return (
     <Router>
@@ -17,8 +16,6 @@ function App() {
         <Route path="/resultados" element={<ResultadosExamen/>} />
         <Route path="/home" element={<Home />} />
         <Route path='/problem' element={<ProblemDescription/>} />
-        <Route path='/terminal' element={<Terminal/>} />
-        
       </Routes>
     </Router>
   );

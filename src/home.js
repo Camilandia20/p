@@ -1,24 +1,30 @@
-// src/components/Home.js
 import './home.css';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate en lugar de useHistory
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getData } from './consumer';
 
 const Home = () => {
-  const navigate = useNavigate(); // Utiliza useNavigate en lugar de useHistory
-
-  // Lista de exámenes disponibles (ejemplo)
-  const exams = [
-    { id: 1, name: 'Matemáticas' },
-    { id: 2, name: 'Historia' },
-    { id: 3, name: 'Ciencias' },
-  ];
-
+  const navigate = useNavigate();
+  const [exams, setExams] = useState([]);
   const [selectedExam, setSelectedExam] = useState(null);
+
+  useEffect(() => {
+    const fetchExams = async () => {
+      try {
+        const data = await getData("https://cdb1-191-107-254-86.ngrok-free.app/evaluations");
+        setExams(data);
+      } catch (error) {
+        console.error("Error fetching exams:", error);
+        // Aquí podrías manejar el error, por ejemplo, mostrando un mensaje al usuario
+      }
+    };
+
+    fetchExams();
+  }, []);
 
   const handleStartExam = () => {
     if (selectedExam) {
-      // Redirige a la página de agendar examen con el examen seleccionado
-      navigate(`/agendar/${selectedExam.id}`); // Usa navigate para redirigir
+      navigate(`/agendar/${selectedExam.id}`);
     } else {
       alert('Selecciona un examen para comenzar.');
     }
@@ -37,11 +43,23 @@ const Home = () => {
               value={exam.id}
               onChange={() => setSelectedExam(exam)}
             />
-            <label htmlFor={exam.id}>{exam.name}</label>
+            <label htmlFor={exam.id}>
+              <strong>{exam.name}</strong> - Fecha: {new Date(exam.date).toLocaleString()}
+            </label>
+            <div className="problems-list">
+              <strong>Problemas:</strong>
+              <ul>
+                {exam.problems.map((problem) => (
+                  <li key={problem.id}>
+                    {problem.description} (ID: {problem.id})
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         ))}
       </div>
-      <button className="start-button" onClick={handleStartExam}>
+      <button className="start-button" onClick={handleStartExam} disabled={!selectedExam}>
         Comenzar Examen
       </button>
     </div>
