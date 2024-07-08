@@ -1,0 +1,47 @@
+/* Estilos para la vista de resultados de exámenes */
+
+/* Contenedor principal */
+.exam-results-container {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Encabezado */
+  .exam-results-container h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  /* Tabla */
+  .exam-results-container table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+  }
+  
+  .exam-results-container th, .exam-results-container td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .exam-results-container th {
+    font-weight: bold;
+    background-color: #8da1a0;
+  }
+  
+  .exam-results-container tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .exam-results-container tbody tr:hover {
+    background-color: #f0f0f0;
+  }
+  
