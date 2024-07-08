@@ -1,13 +1,15 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './login.css'; // Importa el archivo CSS para los estilos
 
 const Login = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    // Aquí puedes implementar la lógica para manejar el inicio de sesión
+    navigate('/home');
     console.log('Username:', username);
     console.log('Password:', password);
   };
