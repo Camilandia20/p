@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './login.css'; // Importa el archivo CSS para los estilos
 
 const Login = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
+    navigate('/home');
     try {
       const response = await fetch('http://localhost:8080/auth/login?username='+username+'&password='+password, {
         method: 'POST',
