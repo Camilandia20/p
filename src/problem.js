@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import './problem.css';
 import Terminal from './terminal';
@@ -8,7 +8,9 @@ const ProblemDescription = () => {
   const [problemSet, setProblemSet] = useState(null);
   const [testCases, setTestCases] = useState({});
   const [sourceCode, setSourceCode] = useState('');
-  const user = 1;
+  const editorRefs = useRef({});
+
+  const user = sessionStorage.getItem('userId');
 
   useEffect(() => {
     fetchProblemSet(evaluationId);
@@ -51,8 +53,14 @@ const ProblemDescription = () => {
     alert('Evaluación finalizada');
   };
 
-  const handleSubmit = async (problem,evaluation) => {
+  const handleEditorDidMount = (editor, monaco, problemId) => {
+    editorRefs.current[problemId] = editor;
+  };
+
+  const handleSubmit = async (problem, evaluation) => {
     try {
+      const sourceCode = editorRefs.current[problem].getValue();
+      
       let test = JSON.stringify({
         sourceCode,
         user,
@@ -60,7 +68,8 @@ const ProblemDescription = () => {
         evaluation, 
       });
       console.log(test);
-      const response = await fetch('http://localhost:8080/answers', {
+  
+      const response = await fetch('http://localhost:8080/answers/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -72,15 +81,14 @@ const ProblemDescription = () => {
           evaluation, 
         }),
       });
-
+  
       if (!response.ok) {
         throw new Error('Error al enviar la solución');
       }
-
+  
       const result = await response.json();
-      console.log('Resultado de la submisión:', result);
-      // Aquí puedes manejar la respuesta, por ejemplo, mostrar un mensaje al usuario
-      alert('Solución enviada con éxito');
+      console.log('Resultado de la submisión:', result.result);
+      alert('Su solución ha pasado '+ result.result + ' casos de prueba');
     } catch (error) {
       console.error('Error al enviar la solución:', error);
       alert('Error al enviar la solución. Por favor, intenta de nuevo.');
@@ -112,7 +120,7 @@ const ProblemDescription = () => {
             <p>Cargando casos de prueba...</p>
           )}
           
-          <Terminal  onChange={setSourceCode} />
+          <Terminal onMount={(editor, monaco) => handleEditorDidMount(editor, monaco, problem.id)} />
           <button 
             className="submit-button" 
             onClick={() => handleSubmit(problem.id,evaluationId)}>

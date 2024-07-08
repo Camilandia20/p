@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import './login.css'; // Importa el archivo CSS para los estilos
 
@@ -6,10 +5,27 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // Aquí puedes implementar la lógica para manejar el inicio de sesión
-    console.log('Username:', username);
-    console.log('Password:', password);
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/auth/login?username='+username+'&password='+password, {
+        method: 'POST',
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      console.log('Login successful:', data);
+
+      // Guarda el ID en sessionStorage
+      sessionStorage.setItem('userId', data.id);
+      
+      // Aquí puedes manejar la respuesta del servidor, por ejemplo, redirigir al usuario, etc.
+    } catch (error) {
+      console.error('Error during login:', error);
+      // Aquí puedes manejar errores, como mostrar un mensaje al usuario
+    }
   };
 
   return (

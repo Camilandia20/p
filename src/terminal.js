@@ -1,17 +1,11 @@
 import React from 'react';
 import Editor from "@monaco-editor/react";
 
-function Terminal() {
-  const editorRef = React.useRef(null);
-
+function Terminal({ onMount }) {
   function handleEditorDidMount(editor, monaco) {
-    editorRef.current = editor;
-  }
-
-  function handleSubmit() {
-    const code = editorRef.current.getValue();
-    // Aquí implementarías la lógica para enviar el código al servidor
-    console.log(code);
+    if (onMount) {
+      onMount(editor, monaco);
+    }
   }
 
   return (
