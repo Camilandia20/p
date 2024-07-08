@@ -11,7 +11,7 @@ const Home = () => {
   useEffect(() => {
     const fetchExams = async () => {
       try {
-        const data = await getData("https://cdb1-191-107-254-86.ngrok-free.app/evaluations");
+        const data = await getData("http://localhost:8080/evaluations");
         setExams(data);
       } catch (error) {
         console.error("Error fetching exams:", error);
@@ -24,7 +24,7 @@ const Home = () => {
 
   const handleStartExam = () => {
     if (selectedExam) {
-      navigate(`/agendar/${selectedExam.id}`);
+      navigate(`/problem/${selectedExam.id}`);
     } else {
       alert('Selecciona un examen para comenzar.');
     }

@@ -15,8 +15,7 @@ function App() {
         <Route path="/agendar" element={<AgendarExamen />} />
         <Route path="/resultados" element={<ResultadosExamen/>} />
         <Route path="/home" element={<Home />} />
-        <Route path='/problem' element={<ProblemDescription/>} />
-      </Routes>
+        <Route path='/problem/:id' element={<ProblemDescription/>} />      </Routes>
     </Router>
   );
 }
