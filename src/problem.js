@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './problem.css';
 import Terminal from './terminal';
 
 const ProblemDescription = () => {
+  const navigate = useNavigate();
   const { id: evaluationId } = useParams();
   const [problemSet, setProblemSet] = useState(null);
   const [testCases, setTestCases] = useState({});
@@ -48,9 +50,8 @@ const ProblemDescription = () => {
   };
 
   const handleFinishEvaluation = () => {
-    // Aquí puedes agregar la lógica para finalizar la evaluación,
-    // como redirigir a otra página o mostrar un mensaje de finalización.
     alert('Evaluación finalizada');
+    navigate('/home');
   };
 
   const handleEditorDidMount = (editor, monaco, problemId) => {

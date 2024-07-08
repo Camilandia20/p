@@ -8,7 +8,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
-    navigate('/home');
+    
     try {
       const response = await fetch('http://localhost:8080/auth/login?username='+username+'&password='+password, {
         method: 'POST',
@@ -29,6 +29,7 @@ const Login = () => {
       console.error('Error during login:', error);
       // Aquí puedes manejar errores, como mostrar un mensaje al usuario
     }
+    navigate('/home');
   };
 
   return (
